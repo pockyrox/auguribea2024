@@ -18,6 +18,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 2rem;
     }
     .bg-gradient-to-br {
       background: linear-gradient(to bottom right, #E9D5FF, #D8B4FE, #C084FC);
@@ -77,7 +78,7 @@
     .backdrop-blur-sm {
       backdrop-filter: blur(10px);
     }
-    .bg-white\\ {
+    .bg-white\\/30 {
       background-color: rgba(255, 255, 255, 0.3);
     }
     .p-6 {
@@ -117,12 +118,13 @@
       background-color: #6B21A8;
     }
     button {
-      padding: 1rem 2rem; /* Modificato per migliorare l'usabilità mobile */
+      padding: 0.75rem 1.5rem;
       font-size: 1rem;
       border: none;
       border-radius: 0.5rem;
       cursor: pointer;
       transition: background-color 0.3s ease, transform 0.2s ease;
+      background-color: #4C1D95;
     }
     button:hover {
       transform: scale(1.05);
@@ -196,15 +198,16 @@
       cursor: pointer;
       border-radius: 50%;
     }
+
     /* Miglioramento responsività */
     @media (max-width: 1024px) {
       .grid-cols-3 {
-        grid-template-columns: repeat(2, 1fr); /* Adatta la griglia per schermi medi */
+        grid-template-columns: repeat(2, 1fr);
       }
     }
     @media (max-width: 640px) {
       .grid-cols-3 {
-        grid-template-columns: repeat(1, 1fr); /* Adatta la griglia per schermi piccoli */
+        grid-template-columns: repeat(1, 1fr);
       }
       .text-5xl {
         font-size: 2.25rem;
@@ -214,6 +217,13 @@
       }
       .p-6 {
         padding: 1rem;
+      }
+      .counter-section {
+        flex-direction: column;
+      }
+      .counter-box {
+        width: 100%;
+        margin-bottom: 1rem;
       }
     }
     /* Sezione contatore: stile accattivante */
@@ -250,10 +260,32 @@
     .counter-box:hover h2, .counter-box:hover p {
       transform: scale(1.1);
     }
+     /* Confetti */
+     .confetti {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 10px;
+      height: 10px;
+      background-color: red;
+      opacity: 0.7;
+      border-radius: 50%;
+      animation: fall 3s linear infinite;
+    }
+    @keyframes fall {
+      0% {
+        transform: translateY(-100px) translateX(0);
+      }
+      100% {
+        transform: translateY(100vh) translateX(calc(300px - 50vw));
+      }
+    }
   </style>
 </head>
 <body>
   <div class="min-h-screen bg-gradient-to-br from-purple-200 via-purple-300 to-purple-400 p-4 sm:p-8 relative">
+    <!-- Confetti container -->
+    <div id="confetti-container"></div>
     <!-- Effetto grana sovrapposto -->
     <div class="absolute inset-0 opacity-30 mix-blend-multiply">
       <div class="absolute inset-0 bg-gradient-to-br from-purple-200 via-purple-300 to-purple-400"></div>
@@ -262,11 +294,12 @@
     <div class="max-w-4xl mx-auto space-y-8 relative z-10">
       <header class="text-center">
         <h1 class="text-5xl sm:text-7xl font-extrabold text-purple-900 mb-4 drop-shadow-lg">Buon Compleanno!</h1>
-        <p class="text-2xl sm:text-3xl text-purple-800 drop-shadow">Oggi compi <span id="eta" class="font-bold"></span></p>
+        <p class="text-2xl sm:text-3xl text-purple-800 drop-shadow" style="font-weight: bold;">Oggi compi <span id="eta" class="font-bold"></span></p>
       </header>
 
         <!-- Sezione contatore -->
         <div class="counter-section">
+          </CardHeader>
             <div class="counter-box">
               <h2 id="days">0</h2>
               <p>Giorni</p>
@@ -284,7 +317,7 @@
               <p>Secondi</p>
             </div>
           </div>
-          <p class="text-2xl sm:text-3xl text-purple-800 drop-shadow" style="text-align: center;">Oppure  <span id="eta" class="font-bold">21</span>  anni... (scusa se non è allineato bene 💀)</p>
+          <p class="text-2xl sm:text-3xl text-purple-800 drop-shadow" style="text-align: center;">Oppure 21  <span id="eta" class="font-bold">(16)</span>  anni... (non è allineato ci ho provato ok? 💀)</p>
       <div class="backdrop-blur-sm bg-white/30 p-6">
         <h2 class="flex items-center text-purple-900"><span class="mr-2">🎵</span> Canzone di Compleanno</h2>
         <div class="text-center">
@@ -292,7 +325,7 @@
             Riproduci Canzone di Compleanno
           </button>
         </div>
-        <audio id="birthday-song" src="your-birthday-song.mp3"></audio>
+        <audio id="birthday-song" src="canzone.mp3"></audio>
       </div>
 
       <!-- Accordion Section -->
@@ -432,6 +465,29 @@
     function chiudiPopup() {
       document.getElementById('popup').style.display = 'none';
     }
+        // Funzione per generare i confetti
+        function createConfetti() {
+      const confettiContainer = document.getElementById('confetti-container');
+      for (let i = 0; i < 100; i++) {
+        const confetto = document.createElement('div');
+        confetto.classList.add('confetti');
+        confetto.style.backgroundColor = getRandomColor();
+        confetto.style.left = Math.random() * 100 + 'vw';
+        confetto.style.animationDelay = Math.random() * 5 + 's';
+        confettiContainer.appendChild(confetto);
+      }
+    }
+
+    // Funzione per ottenere un colore casuale
+    function getRandomColor() {
+      const colors = ['#FF5733', '#33FF57', '#3357FF', '#FF33A1', '#FFFB33'];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    // Eseguire la funzione confetti quando la pagina viene caricata
+    window.onload = function() {
+      createConfetti();
+    };
   </script>
 </body>
 </html>
