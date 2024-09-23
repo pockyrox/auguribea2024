@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buon Compleanno</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      box-sizing: border-box;
+      background: linear-gradient(to bottom right, #E9D5FF, #D8B4FE, #C084FC);
+      overflow-x: hidden;
+    }
+    .min-h-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .bg-gradient-to-br {
+      background: linear-gradient(to bottom right, #E9D5FF, #D8B4FE, #C084FC);
+    }
+    .relative {
+      position: relative;
+    }
+    .absolute {
+      position: absolute;
+    }
+    .inset-0 {
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+    .opacity-30 {
+      opacity: 0.3;
+    }
+    .mix-blend-multiply {
+      mix-blend-mode: multiply;
+    }
+    .max-w-4xl {
+      max-width: 64rem;
+    }
+    .mx-auto {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .space-y-8 > * + * {
+      margin-top: 2rem;
+    }
+    .text-center {
+      text-align: center;
+    }
+    .text-5xl {
+      font-size: 3rem;
+    }
+    .sm\\:text-7xl {
+      font-size: 4.5rem;
+    }
+    .font-extrabold {
+      font-weight: 800;
+    }
+    .text-purple-900 {
+      color: #4C1D95;
+    }
+    .drop-shadow-lg {
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    }
+    .text-2xl {
+      font-size: 1.5rem;
+    }
+    .sm\\:text-3xl {
+      font-size: 1.875rem;
+    }
+    .backdrop-blur-sm {
+      backdrop-filter: blur(10px);
+    }
+    .bg-white\\/30 {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+    .p-6 {
+      padding: 1.5rem;
+    }
+    .font-bold {
+      font-weight: 700;
+    }
+    .grid {
+      display: grid;
+    }
+    .grid-cols-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .gap-4 {
+      gap: 1rem;
+    }
+    .aspect-square {
+      aspect-ratio: 1 / 1;
+    }
+    .rounded-lg {
+      border-radius: 0.5rem;
+    }
+    .flex {
+      display: flex;
+    }
+    .items-center {
+      align-items: center;
+    }
+    .justify-center {
+      justify-content: center;
+    }
+    .text-white {
+      color: white;
+    }
+    .bg-purple-500:hover {
+      background-color: #6B21A8;
+    }
+    button {
+      padding: 1rem 2rem; /* Modificato per migliorare l'usabilità mobile */
+      font-size: 1rem;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    button:hover {
+      transform: scale(1.05);
+    }
+    footer {
+      margin-top: 2rem;
+    }
+    ul {
+      padding-left: 1.5rem;
+      text-align: left;
+    }
+    /* Accordion Styles */
+    .accordion {
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: rgba(255, 255, 255, 0.2);
+      margin-bottom: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .accordion.active {
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+    .accordion-header {
+      padding: 1rem;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      padding: 0 1rem;
+    }
+    .accordion-content.open {
+      padding: 1rem;
+      max-height: 200px;
+    }
+    .accordion-arrow {
+      transition: transform 0.3s ease;
+    }
+    .accordion-arrow.rotate {
+      transform: rotate(180deg);
+    }
+    /* Popup Styles */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+      z-index: 100;
+      padding: 2rem;
+      border-radius: 0.5rem;
+    }
+    .popup img {
+      max-width: 100%;
+      height: auto;
+    }
+    .popup-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: red;
+      color: white;
+      padding: 0.5rem;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+    /* Miglioramento responsività */
+    @media (max-width: 1024px) {
+      .grid-cols-3 {
+        grid-template-columns: repeat(2, 1fr); /* Adatta la griglia per schermi medi */
+      }
+    }
+    @media (max-width: 640px) {
+      .grid-cols-3 {
+        grid-template-columns: repeat(1, 1fr); /* Adatta la griglia per schermi piccoli */
+      }
+      .text-5xl {
+        font-size: 2.25rem;
+      }
+      .text-2xl {
+        font-size: 1.25rem;
+      }
+      .p-6 {
+        padding: 1rem;
+      }
+    }
+    /* Sezione contatore: stile accattivante */
+    .counter-section {
+      display: flex;
+      justify-content: space-around;
+      background: rgba(255, 255, 255, 0.3);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2rem;
+    }
+    .counter-box {
+      background-color: white;
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      width: 150px;
+    }
+    .counter-box h2 {
+      font-size: 2rem;
+      color: #6B21A8;
+      margin-bottom: 0.5rem;
+    }
+    .counter-box p {
+      font-size: 1.25rem;
+      color: #4C1D95;
+    }
+    /* Transizioni ed effetti */
+    .counter-box h2, .counter-box p {
+      transition: transform 0.3s ease;
+    }
+    .counter-box:hover h2, .counter-box:hover p {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="min-h-screen bg-gradient-to-br from-purple-200 via-purple-300 to-purple-400 p-4 sm:p-8 relative">
+    <!-- Effetto grana sovrapposto -->
+    <div class="absolute inset-0 opacity-30 mix-blend-multiply">
+      <div class="absolute inset-0 bg-gradient-to-br from-purple-200 via-purple-300 to-purple-400"></div>
+    </div>
+
+    <div class="max-w-4xl mx-auto space-y-8 relative z-10">
+      <header class="text-center">
+        <h1 class="text-5xl sm:text-7xl font-extrabold text-purple-900 mb-4 drop-shadow-lg">Buon Compleanno!</h1>
+        <p class="text-2xl sm:text-3xl text-purple-800 drop-shadow">Oggi compi <span id="eta" class="font-bold"></span></p>
+      </header>
+
+        <!-- Sezione contatore -->
+        <div class="counter-section">
+            <div class="counter-box">
+              <h2 id="days">0</h2>
+              <p>Giorni</p>
+            </div>
+            <div class="counter-box">
+              <h2 id="hours">0</h2>
+              <p>Ore</p>
+            </div>
+            <div class="counter-box">
+              <h2 id="minutes">0</h2>
+              <p>Minuti</p>
+            </div>
+            <div class="counter-box">
+              <h2 id="seconds">0</h2>
+              <p>Secondi</p>
+            </div>
+          </div>
+          <p class="text-2xl sm:text-3xl text-purple-800 drop-shadow" style="text-align: center;">Oppure  <span id="eta" class="font-bold">21</span>  anni... (scusa se non è allineato bene 💀)</p>
+      <div class="backdrop-blur-sm bg-white/30 p-6">
+        <h2 class="flex items-center text-purple-900"><span class="mr-2">🎵</span> Canzone di Compleanno</h2>
+        <div class="text-center">
+          <button id="play-btn" class="bg-purple-500 hover:bg-purple-600 text-white p-2 rounded">
+            Riproduci Canzone di Compleanno
+          </button>
+        </div>
+        <audio id="birthday-song" src="your-birthday-song.mp3"></audio>
+      </div>
+
+      <!-- Accordion Section -->
+      <div class="accordion">
+        <div class="accordion-header">
+          Fatti sul Compleanno
+          <span class="accordion-arrow">▼</span>
+        </div>
+        <div class="accordion-content">
+          <ul class="list-disc list-inside text-purple-900">
+            <li>Condividi il compleanno con F. Scott Fitzgerald</li>
+            <li>La tua pietra natale è lo Zaffiro</li>
+            <li>Il tuo fiore di nascita è l'Astro</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <div class="accordion-header">
+          Segno Zodiacale
+          <span class="accordion-arrow">▼</span>
+        </div>
+        <div class="accordion-content">
+          <p class="text-2xl font-semibold mb-2 text-purple-900">Bilancia ♎</p>
+          <p class="text-purple-900">Affascinante, equilibrato e diplomatico</p>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <div class="accordion-header">
+          Accadde Oggi
+          <span class="accordion-arrow">▼</span>
+        </div>
+        <div class="accordion-content">
+          <p class="text-purple-900">Il telescopio spaziale Hubble ha iniziato le osservazioni del campo ultra profondo di Hubble.</p>
+        </div>
+      </div>
+
+      <!-- Galleria Fotografica -->
+      <div class="backdrop-blur-sm bg-white/30 p-6">
+        <h2 class="flex items-center text-purple-900"><span class="mr-2">📷</span> Galleria Fotografica</h2>
+        <div class="grid grid-cols-3 gap-4">
+          <!-- Popup for enlarged images -->
+          <div class="aspect-square bg-purple-200 rounded-lg flex items-center justify-center" onclick="apriPopup(1)">
+            <span class="text-purple-900">Foto 1</span>
+          </div>
+          <div class="aspect-square bg-purple-200 rounded-lg flex items-center justify-center" onclick="apriPopup(2)">
+            <span class="text-purple-900">Foto 2</span>
+          </div>
+          <div class="aspect-square bg-purple-200 rounded-lg flex items-center justify-center" onclick="apriPopup(3)">
+            <span class="text-purple-900">Foto 3</span>
+          </div>
+        </div>
+      </div>
+
+      <footer class="text-center text-purple-900">
+        <p>Ti auguriamo una giornata piena di gioia, risate e meravigliosi ricordi!</p>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Popup Content -->
+  <div id="popup" class="popup">
+    <span class="popup-close" onclick="chiudiPopup()">✕</span>
+    <img id="popup-img" src="" alt="Foto ingrandita">
+  </div>
+
+  <script>
+    // Data di nascita (sostituire con la data effettiva)
+    const dataDiNascita = new Date('2003-09-23T00:00:00');
+
+    // Funzione per calcolare e aggiornare il tempo vissuto
+    function aggiornaContatore() {
+      const adesso = new Date();
+      const differenza = adesso - dataDiNascita;
+
+      // Calcolo dei giorni, ore, minuti e secondi
+      const giorni = Math.floor(differenza / (1000 * 60 * 60 * 24));
+      const ore = Math.floor((differenza / (1000 * 60 * 60)));
+      const minuti = Math.floor((differenza / (1000 * 60)));
+      const secondi = Math.floor((differenza / 1000));
+
+      // Aggiorna i valori nei box
+      document.getElementById('days').textContent = giorni.toLocaleString();
+      document.getElementById('hours').textContent = ore.toLocaleString();
+      document.getElementById('minutes').textContent = minuti.toLocaleString();
+      document.getElementById('seconds').textContent = secondi.toLocaleString();
+    }
+
+    // Aggiorna il contatore ogni secondo
+    setInterval(aggiornaContatore, 1000);
+
+    // Esegui subito il primo aggiornamento
+    aggiornaContatore();
+
+    // Gestione riproduzione canzone di compleanno
+    const audio = document.getElementById('birthday-song');
+    const playBtn = document.getElementById('play-btn');
+    let inRiproduzione = false;
+
+    playBtn.addEventListener('click', function() {
+      if (inRiproduzione) {
+        audio.pause();
+        playBtn.textContent = 'Riproduci Canzone di Compleanno';
+      } else {
+        audio.play();
+        playBtn.textContent = 'Ferma Canzone di Compleanno';
+      }
+      inRiproduzione = !inRiproduzione;
+    });
+
+    // Accordion functionality
+    const accordions = document.querySelectorAll('.accordion');
+    accordions.forEach(accordion => {
+      accordion.addEventListener('click', function() {
+        this.classList.toggle('active');
+        const content = this.querySelector('.accordion-content');
+        const arrow = this.querySelector('.accordion-arrow');
+        if (content.classList.contains('open')) {
+          content.classList.remove('open');
+          arrow.classList.remove('rotate');
+        } else {
+          content.classList.add('open');
+          arrow.classList.add('rotate');
+        }
+      });
+    });
+
+    // Popup functionality
+    function apriPopup(fotoNum) {
+      const popup = document.getElementById('popup');
+      const img = document.getElementById('popup-img');
+      img.src = `foto${fotoNum}.jpg`; // Sostituire con il percorso corretto
+      popup.style.display = 'block';
+    }
+
+    function chiudiPopup() {
+      document.getElementById('popup').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
